@@ -13,8 +13,21 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(253, 253, 253, 1),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              ElevatedButton(
+                child: ImageIcon(AssetImage('lib/assets/icon/dark/Notes.png')),
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+                  fixedSize: const Size(95, 95),
+                ),
+              )
+            ],
+          )
+        ],
       ),
     );
   }
