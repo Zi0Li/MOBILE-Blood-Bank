@@ -9,17 +9,41 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(253, 253, 253, 1),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(26, 28, 26, 28),
+        padding: EdgeInsets.fromLTRB(27, 28, 27, 28),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row( children: [Button('Teste','')],
+            Row(
+              children: [
+                Button('Histórico', 'icons/Notes.svg'),
+                SizedBox(
+                  width: 25,
+                ),
+                Button('Doar', 'icons/Syringe.svg'),
+                SizedBox(
+                  width: 25,
+                ),
+                Button('Guia', 'icons/Book.svg'),
+              ],
+            ),
+            SizedBox(height: 16,),
+            Row(
+              children: [
+                Button('Config.', 'icons/Setting.svg'),
+                SizedBox(
+                  width: 25,
+                ),
+                Button('Notícias', 'icons/Notification_Status.svg'),
+                SizedBox(
+                  width: 25,
+                ),
+                Button('Créditos', 'icons/2profile.svg'),
+              ],
             ),
           ],
         ),
