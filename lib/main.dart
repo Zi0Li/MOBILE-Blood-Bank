@@ -23,7 +23,8 @@ class _BloodBankState extends State<BloodBank> {
         title: Text('Teste'),
         backgroundColor: Color.fromRGBO(231, 53, 38, 1),
       ),
-      body: HomePage(),
+      body: 
+      HomePage(),
     );
   }
 }

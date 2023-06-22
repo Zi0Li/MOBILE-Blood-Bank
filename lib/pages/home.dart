@@ -1,4 +1,5 @@
 import 'package:blood_bank/widgets/Button.dart';
+import 'package:blood_bank/widgets/Message_Balloon.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +21,10 @@ class _HomePageState extends State<HomePage> {
           children: [
             Row(
               children: [
-                Button('Histórico', 'icons/Notes.svg'),
+                Button(
+                  'Histórico',
+                  'icons/Notes.svg',
+                ),
                 SizedBox(
                   width: 25,
                 ),
@@ -31,7 +35,9 @@ class _HomePageState extends State<HomePage> {
                 Button('Guia', 'icons/Book.svg'),
               ],
             ),
-            SizedBox(height: 16,),
+            SizedBox(
+              height: 16,
+            ),
             Row(
               children: [
                 Button('Config.', 'icons/Setting.svg'),
@@ -45,6 +51,26 @@ class _HomePageState extends State<HomePage> {
                 Button('Créditos', 'icons/2profile.svg'),
               ],
             ),
+            SizedBox(
+              height: 32,
+            ),
+            Container(
+              width: 352,
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    width: 1,
+                    strokeAlign: BorderSide.strokeAlignCenter,
+                    color: Color(0xFFD0D0D0),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 32,
+            ),
+            Message_Ballon('Pode doar sangue novamente em:',
+                '3 meses e 19 dias', Icons.dangerous),
           ],
         ),
       ),
