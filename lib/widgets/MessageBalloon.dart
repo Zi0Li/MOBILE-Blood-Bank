@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Message_Ballon extends StatelessWidget {
+// ignore: must_be_immutable
+class MessageBallon extends StatelessWidget {
   String _textMessage = '';
   String _textTime = '';
   final _icon;
 
-  Message_Ballon(String this._textMessage, String this._textTime, this._icon);
+  MessageBallon(String this._textMessage, String this._textTime, this._icon);
 
   @override
   Widget build(BuildContext context) {

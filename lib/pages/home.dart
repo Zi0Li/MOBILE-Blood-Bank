@@ -1,5 +1,6 @@
 import 'package:blood_bank/widgets/Button.dart';
-import 'package:blood_bank/widgets/Message_Balloon.dart';
+import 'package:blood_bank/widgets/MessageBalloon.dart';
+import 'package:blood_bank/widgets/NextConsultation.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -69,8 +70,10 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 32,
             ),
-            Message_Ballon('Pode doar sangue novamente em:',
+            MessageBallon('Pode doar sangue novamente em:',
                 '3 meses e 19 dias', Icons.dangerous),
+          SizedBox(height: 25,),
+            NextConsultation('','','','',''),
           ],
         ),
       ),
