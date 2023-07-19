@@ -5,8 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 class Button extends StatelessWidget {
   String _text = '';
   String _image = '';
+  Widget _page;
 
-  Button(String this._text, String this._image);
+  Button(String this._text, String this._image, Widget this._page);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,9 @@ class Button extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>_page));
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
