@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
-class TopAppBar extends StatefulWidget {
-  const TopAppBar({super.key});
+// ignore: must_be_immutable
+class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
 
-  @override
-  State<TopAppBar> createState() => _TopAppBarState();
-}
+  String _name;
+  String _year;
+  String _blood;
 
-class _TopAppBarState extends State<TopAppBar> {
+  TopAppBar(String this._name, String this._year, String this._blood);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: 65,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: const [
+        children: [
           Icon(
             Icons.person,
             size: 60,
@@ -23,11 +24,11 @@ class _TopAppBarState extends State<TopAppBar> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Marcelo Zioli',
+                _name,
                 style: TextStyle(fontSize: 20),
               ),
               Text(
-                'Idade',
+               '$_year anos',
                 style: TextStyle(fontSize: 16),
               ),
             ],
@@ -40,14 +41,14 @@ class _TopAppBarState extends State<TopAppBar> {
           onPressed: () {},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Icon(
                 Icons.water_drop,
                 color: Colors.white,
                 size: 26,
               ),
               Text(
-                'A+',
+                _blood,
                 style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ],
@@ -58,4 +59,7 @@ class _TopAppBarState extends State<TopAppBar> {
       ],
     );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }

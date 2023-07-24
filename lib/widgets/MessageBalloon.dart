@@ -52,6 +52,7 @@ class MessageBallon extends StatelessWidget {
                   ],
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [

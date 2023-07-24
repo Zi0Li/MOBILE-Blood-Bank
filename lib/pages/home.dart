@@ -1,3 +1,4 @@
+import 'package:blood_bank/pages/guide.dart';
 import 'package:blood_bank/pages/login.dart';
 import 'package:blood_bank/widgets/AppBar.dart';
 import 'package:blood_bank/widgets/Button.dart';
@@ -17,8 +18,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: TopAppBar('Marcelo','21','B-'),
       backgroundColor: Color.fromRGBO(253, 253, 253, 1),
+      bottomNavigationBar: NavigationAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.fromLTRB(27, 28, 27, 28),
@@ -39,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     width: 25,
                   ),
-                  Button('Guia', 'icons/Book.svg',LoginPage()),
+                  Button('Guia', 'icons/Book.svg',GuidePage()),
                 ],
               ),
               SizedBox(
@@ -86,7 +88,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: NavigationAppBar(),
     );
   }
 }
