@@ -1,3 +1,4 @@
+import 'package:blood_bank/controllers/donateController.dart';
 import 'package:blood_bank/pages/guide.dart';
 import 'package:blood_bank/pages/login.dart';
 import 'package:blood_bank/pages/news.dart';
@@ -16,6 +17,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  DonateController controller = DonateController();
+  List<dynamic> donates = [];
+
+  @override
+  void initState() {
+    super.initState();
+    Donate d = Donate();
+
+    // d.date = '2222';
+    // d.clinic = '2222';
+    // d.district = '2222';
+    // d.number = 2222;
+    // d.street = '2222';
+    // controller.saveDonate(d);
+    controller.deleteAll();
+    controller.getAllDonate().then((value){
+      donates = value;
+      print(donates);
+      controller.deleteDonate(1);
+    });
+
+    // controller.getAllDonate().then((value){
+    //   donates=value;
+    //   print('------------------------');
+    //   print(donates[1].id);
+    // });
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
