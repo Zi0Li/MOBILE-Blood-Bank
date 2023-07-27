@@ -1,8 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-final String donateTable = 'donateTable';
-final String idColumn = 'idColumn';
+const String donateTable = 'donateTable';
+const String idColumn = 'idColumn';
 final String numberColumn = 'numberColumn';
 final String dateColumn = 'dateColumn';
 final String streetColumn = 'streetColumn';
@@ -11,11 +11,11 @@ final String clinicColumn = 'clinicColumn';
 
 class DonateController {
   static final DonateController _instance = DonateController.internal();
-  
+
   factory DonateController() => _instance;
-  
+
   DonateController.internal();
-  
+
   Database? _db;
 
   Future<Database> get db async {
@@ -29,13 +29,13 @@ class DonateController {
 
   Future<Database> initDb() async {
     final databasePath = await getDatabasesPath();
-    final path = join(databasePath, 'donate.db');
+    final path = join(databasePath, "donates.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
-          "CREATE TABLE $donateTable($idColumn INTEGER PRIMARY KEY, $numberColumn INTERGER, $dateColumn TEXT,"
-          "$streetColumn TEXT, $districtColumn TEXT, $clinicColumn TEXT)");
+          "CREATE TABLE $donateTable($idColumn INTEGER PRIMARY KEY, $streetColumn TEXT, $districtColumn TEXT,"
+          "$numberColumn INTEGER, $clinicColumn TEXT, $dateColumn TEXT)");
     });
   }
 
@@ -48,19 +48,19 @@ class DonateController {
 
   Future<dynamic> getDonate(int id) async {
     Database dbDonate = await db;
-    List<Map> map = await dbDonate.query(donateTable,
+    List<Map> maps = await dbDonate.query(donateTable,
         columns: [
           idColumn,
-          numberColumn,
-          dateColumn,
           streetColumn,
           districtColumn,
-          clinicColumn
+          numberColumn,
+          clinicColumn,
+          dateColumn
         ],
         where: "$idColumn = ?",
         whereArgs: [id]);
-    if (map.length > 0) {
-      return Donate.fromMap(map.first);
+    if (maps.length > 0) {
+      return Donate.fromMap(maps.first);
     } else {
       return null;
     }
@@ -75,23 +75,17 @@ class DonateController {
   Future<int> updateDonate(Donate donate) async {
     Database dbDonate = await db;
     return await dbDonate.update(donateTable, donate.toMap(),
-        where: '$idColumn = ?', whereArgs: [donate.id]);
+        where: "$idColumn = ?", whereArgs: [donate.id]);
   }
 
   Future<List> getAllDonate() async {
     Database dbDonate = await db;
-    List listMap = await dbDonate.rawQuery('SELECT * FROM $donateTable');
+    List listMap = await dbDonate.rawQuery("SELECT * FROM $donateTable");
     List<Donate> listDonate = [];
     for (Map m in listMap) {
       listDonate.add(Donate.fromMap(m));
     }
     return listDonate;
-  }
-
-
-  Future deleteAll() async{
-    Database dbDonate = await db;
-    dbDonate.execute('DELETE FROM $donateTable');
   }
 
   Future<int?> getNumber() async {
@@ -103,6 +97,11 @@ class DonateController {
   Future close() async {
     Database dbDonate = await db;
     dbDonate.close();
+  }
+
+   Future deleteAll() async{
+    Database dbDonate = await db;
+    dbDonate.execute('DELETE FROM $donateTable');
   }
 }
 
@@ -127,11 +126,11 @@ class Donate {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
-      numberColumn: number,
-      dateColumn: date,
       streetColumn: street,
       districtColumn: district,
-      clinicColumn: clinic,
+      numberColumn: number,
+      dateColumn: date,
+      clinicColumn: clinicColumn,
     };
     if (id != null) {
       map[idColumn] = id;
@@ -141,6 +140,6 @@ class Donate {
 
   @override
   String toString() {
-    return "Donate(id: $id, date: $date, number: $number, street: $street, district: $district, clinic: $clinic)";
+    return "Donate(id: $id,date: $date, number: $number, street: $street, district: $district, clinic: $clinic)";
   }
 }

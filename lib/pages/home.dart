@@ -1,4 +1,5 @@
 import 'package:blood_bank/controllers/donateController.dart';
+import 'package:blood_bank/pages/donate.dart';
 import 'package:blood_bank/pages/guide.dart';
 import 'package:blood_bank/pages/login.dart';
 import 'package:blood_bank/pages/news.dart';
@@ -6,6 +7,7 @@ import 'package:blood_bank/widgets/AppBar.dart';
 import 'package:blood_bank/widgets/Button.dart';
 import 'package:blood_bank/widgets/MessageBalloon.dart';
 import 'package:blood_bank/widgets/NavigationBar.dart';
+import 'package:blood_bank/widgets/NewsCard.dart';
 import 'package:blood_bank/widgets/NextConsultation.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    Donate d = Donate();
+    //Donate d = Donate();
 
     // d.date = '2222';
     // d.clinic = '2222';
@@ -32,7 +34,8 @@ class _HomePageState extends State<HomePage> {
     // d.number = 2222;
     // d.street = '2222';
     // controller.saveDonate(d);
-    controller.deleteAll();
+    //controller.deleteAll();
+    //controller.deleteDonate(1);
     controller.getAllDonate().then((value){
       donates = value;
       print(donates);
@@ -66,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     width: 25,
                   ),
-                  Button('Doar', 'icons/Syringe.svg', LoginPage()),
+                  Button('Doar', 'icons/Syringe.svg', DonatePage()),
                   SizedBox(
                     width: 25,
                   ),
@@ -133,6 +136,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 25,
               ), 
+              NewsCard()
             ],
           ),
         ),
