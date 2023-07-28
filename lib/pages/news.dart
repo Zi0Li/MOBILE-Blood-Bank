@@ -24,7 +24,7 @@ class _NewsPageState extends State<NewsPage> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: ListView(children: [
-          NewsCard()
+          NewsCard('21/21/21','TESTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
         ]),
       ),
     );

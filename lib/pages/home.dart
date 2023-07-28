@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 25,
               ), 
-              NewsCard()
+              NewsCard('21/21/21','TESTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
             ],
           ),
         ),

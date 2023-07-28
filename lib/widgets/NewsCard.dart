@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-class NewsCard extends StatefulWidget {
-  const NewsCard({super.key});
+// ignore: must_be_immutable
+class NewsCard extends StatelessWidget {
+  String _date = '';
+  String _text = '';
 
-  @override
-  State<NewsCard> createState() => _NewsCardState();
-}
+  NewsCard(String this._date, this._text);
 
-class _NewsCardState extends State<NewsCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +22,7 @@ class _NewsCardState extends State<NewsCard> {
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Column(
-          children: const [
+          children: [
             Stack(
               children: [
                 Column(
@@ -38,7 +37,7 @@ class _NewsCardState extends State<NewsCard> {
                           fontFamily: 'inter'),
                     ),
                     Text(
-                      '21/21/21',
+                      _date,
                       style: TextStyle(
                           color: Colors.black54,
                           fontSize: 16,
@@ -65,7 +64,7 @@ class _NewsCardState extends State<NewsCard> {
             Column(
               children: [
                 Text(
-                  'TESTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE',
+                  _text,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     color: Colors.black87,
