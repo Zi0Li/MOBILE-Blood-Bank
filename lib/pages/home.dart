@@ -1,5 +1,5 @@
 import 'package:blood_bank/controllers/donateController.dart';
-import 'package:blood_bank/pages/donate.dart';
+import 'package:blood_bank/pages/donateForm.dart';
 import 'package:blood_bank/pages/guide.dart';
 import 'package:blood_bank/pages/login.dart';
 import 'package:blood_bank/pages/news.dart';
@@ -19,7 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   DonateController controller = DonateController();
   List<dynamic> donates = [];
 
@@ -36,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     // controller.saveDonate(d);
     //controller.deleteAll();
     //controller.deleteDonate(1);
-    controller.getAllDonate().then((value){
+    controller.getAllDonate().then((value) {
       donates = value;
       print(donates);
       controller.deleteDonate(1);
@@ -48,8 +47,6 @@ class _HomePageState extends State<HomePage> {
     //   print(donates[1].id);
     // });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,15 +62,17 @@ class _HomePageState extends State<HomePage> {
             children: [
               Row(
                 children: [
-                  Button('Histórico', 'icons/Notes.svg', LoginPage()),
+                  Flexible(
+                      child:
+                          Button('Histórico', 'icons/Notes.svg', LoginPage())),
                   SizedBox(
                     width: 25,
                   ),
-                  Button('Doar', 'icons/Syringe.svg', DonatePage()),
+                  Flexible(child: Button('Doar', 'icons/Syringe.svg', DonateFormPage())),
                   SizedBox(
                     width: 25,
                   ),
-                  Button('Guia', 'icons/Book.svg', GuidePage()),
+                  Flexible(child: Button('Guia', 'icons/Book.svg', GuidePage())),
                 ],
               ),
               SizedBox(
@@ -81,35 +80,26 @@ class _HomePageState extends State<HomePage> {
               ),
               Row(
                 children: [
-                  Button('Config.', 'icons/Setting.svg', LoginPage()),
+                  Flexible(child: Button('Config.', 'icons/Setting.svg', LoginPage())),
                   SizedBox(
                     width: 25,
                   ),
-                  Button(
-                      'Notícias', 'icons/Notification_Status.svg', NewsPage()),
+                  Flexible(
+                    child: Button(
+                        'Notícias', 'icons/Notification_Status.svg', NewsPage()),
+                  ),
                   SizedBox(
                     width: 25,
                   ),
-                  Button('Créditos', 'icons/2profile.svg', LoginPage()),
+                  Flexible(child: Button('Créditos', 'icons/2profile.svg', LoginPage())),
                 ],
               ),
               SizedBox(
-                height: 28,
+                height: 10,
               ),
-              Container(
-                width: 352,
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 1,
-                      strokeAlign: BorderSide.strokeAlignCenter,
-                      color: Color(0xFFD0D0D0),
-                    ),
-                  ),
-                ),
-              ),
+              Divider(color: Color(0xFFD0D0D0)),
               SizedBox(
-                height: 25,
+                height: 10,
               ),
               MessageBallon('Pode doar sangue novamente em:',
                   '3 meses e 19 dias', Icons.dangerous),
@@ -118,25 +108,15 @@ class _HomePageState extends State<HomePage> {
               ),
               NextConsultation('21/04/2023', 'Rio Claro', '10',
                   'Vila Progresso', 'Dr. Alberto'),
-                  SizedBox(
-                height: 28,
-              ),
-              Container(
-                width: 352,
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 1,
-                      strokeAlign: BorderSide.strokeAlignCenter,
-                      color: Color(0xFFD0D0D0),
-                    ),
-                  ),
-                ),
-              ),
               SizedBox(
-                height: 25,
-              ), 
-              NewsCard('21/21/21','TESTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
+                height: 10,
+              ),
+              Divider(color: Color(0xFFD0D0D0)),
+              SizedBox(
+                height: 10,
+              ),
+              NewsCard(
+                  '21/21/21', 'TESTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
             ],
           ),
         ),
