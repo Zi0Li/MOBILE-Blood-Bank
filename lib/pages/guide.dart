@@ -65,7 +65,7 @@ class _GuidePageState extends State<GuidePage> {
       padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
       child: Container(
         decoration: BoxDecoration(
-            color: const Color.fromARGB(193, 255, 255, 255),
+            color:  Color.fromARGB(179, 255, 255, 255),
             borderRadius: BorderRadius.circular(10),
             border: Border( 
               left: BorderSide(width: 0, color: Colors.transparent),

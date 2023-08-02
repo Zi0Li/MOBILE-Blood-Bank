@@ -14,7 +14,6 @@ class MessageBallon extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            width: 352,
             height: 68,
             decoration: BoxDecoration(
               color: Colors.red.shade100,

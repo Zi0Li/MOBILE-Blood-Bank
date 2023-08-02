@@ -27,41 +27,79 @@ class _DonateFormPageState extends State<DonateFormPage> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Dados Pessoais',
-              style: TextStyle(
-                  color: Color.fromRGBO(231, 53, 38, 1),
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height:15),
-            _textField('Nome', Icons.person, _userController),
-            SizedBox(height:10),
-            _textField('Tipo Sanquíneo', Icons.water_drop, _bloodController),
-            Divider(),
-            Text(
-              'Dados Pessoais',
-              style: TextStyle(
-                  color: Color.fromRGBO(231, 53, 38, 1),
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height:15),
-            _textField('Dr./Dra.', Icons.medical_services_outlined, _doctorController),
-            SizedBox(height: 10,),
-            _textField('Rua', Icons.horizontal_distribute, _streetController),
-            SizedBox(height: 10,),
-            _textField('Bairro', Icons.holiday_village_outlined , _districtController),
-            SizedBox(height: 10,),
-            _textField('Numero', Icons.pin , _numberController, type: TextInputType.number),
-            SizedBox(height: 10,),
-            _textField('Clinica', Icons.home_work_outlined , _clinicController),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Dados Pessoais',
+                style: TextStyle(
+                    color: Color.fromRGBO(231, 53, 38, 1),
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 15),
+              _textField('Nome', Icons.person, _userController),
+              SizedBox(height: 10),
+              _textField('Tipo Sanquíneo', Icons.water_drop, _bloodController),
+              Divider(),
+              Text(
+                'Dados Pessoais',
+                style: TextStyle(
+                    color: Color.fromRGBO(231, 53, 38, 1),
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 15),
+              _textField(
+                  'Dr./Dra.', Icons.medical_services_outlined, _doctorController),
+              SizedBox(
+                height: 10,
+              ),
+              _textField('Rua', Icons.horizontal_distribute, _streetController),
+              SizedBox(
+                height: 10,
+              ),
+              _textField(
+                  'Bairro', Icons.holiday_village_outlined, _districtController),
+              SizedBox(
+                height: 10,
+              ),
+              _textField('Numero', Icons.pin, _numberController,
+                  type: TextInputType.number),
+              SizedBox(
+                height: 10,
+              ),
+              _textField('Clinica', Icons.home_work_outlined, _clinicController),
+              SizedBox(
+                height: 40,
+              ),
+              Center(
+                child: SizedBox(
+                  height: 50,
+                  width: 150,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Cadastrar',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromRGBO(231, 53, 38, 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
