@@ -39,7 +39,7 @@ class Button extends StatelessWidget {
               shadowColor: Colors.black,
               backgroundColor: Color.fromRGBO(255, 255, 255, 1),
               elevation: 5,
-              fixedSize: Size(95, 95),
+              fixedSize: Size(95, 95),  
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),

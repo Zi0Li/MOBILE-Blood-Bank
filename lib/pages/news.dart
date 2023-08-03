@@ -9,6 +9,9 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
+
+  String _text = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +27,7 @@ class _NewsPageState extends State<NewsPage> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: ListView(children: [
-          NewsCard('21/21/21','TESTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
+          NewsCard('21/21/21', _text)
         ]),
       ),
     );

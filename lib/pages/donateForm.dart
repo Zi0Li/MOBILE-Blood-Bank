@@ -1,3 +1,5 @@
+import 'package:blood_bank/controllers/donateController.dart';
+import 'package:blood_bank/controllers/formsValidator.dart';
 import 'package:flutter/material.dart';
 
 class DonateFormPage extends StatefulWidget {
@@ -8,6 +10,9 @@ class DonateFormPage extends StatefulWidget {
 }
 
 class _DonateFormPageState extends State<DonateFormPage> {
+  DonateController controller = DonateController();
+  FormsValidator _validator = FormsValidator();
+
   final TextEditingController _userController = TextEditingController();
   final TextEditingController _bloodController = TextEditingController();
   final TextEditingController _doctorController = TextEditingController();
@@ -15,6 +20,20 @@ class _DonateFormPageState extends State<DonateFormPage> {
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _numberController = TextEditingController();
   final TextEditingController _clinicController = TextEditingController();
+
+  String? _userError;
+  String? _bloodError;
+  String? _doctorError;
+  String? _streetError;
+  String? _districtError;
+  String? _numberError;
+  String? _clinicError;
+
+  @override
+  void initState() {
+    super.initState();
+    //Donate _newDonate = Donate();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +60,11 @@ class _DonateFormPageState extends State<DonateFormPage> {
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 15),
-              _textField('Nome', Icons.person, _userController),
+              _textField('Nome', Icons.person, _userController,
+                  error: _userError),
               SizedBox(height: 10),
-              _textField('Tipo Sanquíneo', Icons.water_drop, _bloodController),
+              _textField('Tipo Sanquíneo', Icons.water_drop, _bloodController,
+                  error: _bloodError),
               Divider(),
               Text(
                 'Dados Pessoais',
@@ -53,26 +74,30 @@ class _DonateFormPageState extends State<DonateFormPage> {
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 15),
-              _textField(
-                  'Dr./Dra.', Icons.medical_services_outlined, _doctorController),
+              _textField('Dr./Dra.', Icons.medical_services_outlined,
+                  _doctorController,
+                  error: _doctorError),
               SizedBox(
                 height: 10,
               ),
-              _textField('Rua', Icons.horizontal_distribute, _streetController),
+              _textField('Rua', Icons.horizontal_distribute, _streetController,
+                  error: _streetError),
               SizedBox(
                 height: 10,
               ),
               _textField(
-                  'Bairro', Icons.holiday_village_outlined, _districtController),
+                  'Bairro', Icons.holiday_village_outlined, _districtController,
+                  error: _districtError),
               SizedBox(
                 height: 10,
               ),
               _textField('Numero', Icons.pin, _numberController,
-                  type: TextInputType.number),
+                  type: TextInputType.number, error: _numberError),
               SizedBox(
                 height: 10,
               ),
-              _textField('Clinica', Icons.home_work_outlined, _clinicController),
+              _textField('Clinica', Icons.home_work_outlined, _clinicController,
+                  error: _clinicError),
               SizedBox(
                 height: 40,
               ),
@@ -81,7 +106,9 @@ class _DonateFormPageState extends State<DonateFormPage> {
                   height: 50,
                   width: 150,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _create();
+                    },
                     child: Text(
                       'Cadastrar',
                       style: TextStyle(
@@ -107,12 +134,19 @@ class _DonateFormPageState extends State<DonateFormPage> {
 
   Widget _textField(
       String _label, IconData _icon, TextEditingController _controller,
-      {TextInputType? type, String suffix = '', bool obscureText = false}) {
+      {TextInputType? type,
+      String suffix = '',
+      bool obscureText = false,
+      String? error}) {
     return TextField(
       controller: _controller,
       keyboardType: type,
       obscureText: obscureText,
       decoration: InputDecoration(
+        errorText: error,
+        errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.red)),
+        errorStyle: TextStyle(color: Colors.red, fontSize: 14),
         labelText: _label,
         labelStyle: TextStyle(color: Color.fromRGBO(116, 121, 128, 1)),
         prefixIcon: Icon(
@@ -140,5 +174,25 @@ class _DonateFormPageState extends State<DonateFormPage> {
         ),
       ),
     );
+  }
+
+  void _create() {
+    _userError = _validator.nullValidate(_userController.text);
+    _bloodError = _validator.nullValidate(_bloodController.text);
+    _doctorError = _validator.nullValidate(_doctorController.text);
+    _streetError = _validator.nullValidate(_streetController.text);
+    _districtError = _validator.nullValidate(_districtController.text);
+    _numberError = _validator.nullValidate(_numberController.text);
+    _clinicError = _validator.nullValidate(_clinicController.text);
+    if (_userError == null &&
+        _bloodError == null &&
+        _doctorError == null &&
+        _streetError == null &&
+        _districtError == null &&
+        _numberError == null &&
+        _clinicError == null) {
+    } else {
+      setState(() {});
+    }
   }
 }
