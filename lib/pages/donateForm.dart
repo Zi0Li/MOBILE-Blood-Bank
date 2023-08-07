@@ -11,7 +11,8 @@ class DonateFormPage extends StatefulWidget {
 
 class _DonateFormPageState extends State<DonateFormPage> {
   DonateController controller = DonateController();
-  FormsValidator _validator = FormsValidator();
+  FormsValidator validator = FormsValidator();
+  Donate newDonate = Donate();
 
   final TextEditingController _userController = TextEditingController();
   final TextEditingController _bloodController = TextEditingController();
@@ -20,6 +21,7 @@ class _DonateFormPageState extends State<DonateFormPage> {
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _numberController = TextEditingController();
   final TextEditingController _clinicController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
 
   String? _userError;
   String? _bloodError;
@@ -28,11 +30,11 @@ class _DonateFormPageState extends State<DonateFormPage> {
   String? _districtError;
   String? _numberError;
   String? _clinicError;
+  String? _dateError;
 
   @override
   void initState() {
     super.initState();
-    //Donate _newDonate = Donate();
   }
 
   @override
@@ -99,7 +101,12 @@ class _DonateFormPageState extends State<DonateFormPage> {
               _textField('Clinica', Icons.home_work_outlined, _clinicController,
                   error: _clinicError),
               SizedBox(
-                height: 40,
+                height: 10,
+              ),
+              _textField('Horário', Icons.timer_outlined, _dateController,
+                  error: _dateError, type: TextInputType.datetime),
+              SizedBox(
+                height: 30,
               ),
               Center(
                 child: SizedBox(
@@ -177,20 +184,29 @@ class _DonateFormPageState extends State<DonateFormPage> {
   }
 
   void _create() {
-    _userError = _validator.nullValidate(_userController.text);
-    _bloodError = _validator.nullValidate(_bloodController.text);
-    _doctorError = _validator.nullValidate(_doctorController.text);
-    _streetError = _validator.nullValidate(_streetController.text);
-    _districtError = _validator.nullValidate(_districtController.text);
-    _numberError = _validator.nullValidate(_numberController.text);
-    _clinicError = _validator.nullValidate(_clinicController.text);
+    _userError = validator.nullValidate(_userController.text);
+    _bloodError = validator.nullValidate(_bloodController.text);
+    _doctorError = validator.nullValidate(_doctorController.text);
+    _streetError = validator.nullValidate(_streetController.text);
+    _districtError = validator.nullValidate(_districtController.text);
+    _numberError = validator.nullValidate(_numberController.text);
+    _clinicError = validator.nullValidate(_clinicController.text);
+    _dateError = validator.nullValidate(_dateController.text);
     if (_userError == null &&
         _bloodError == null &&
         _doctorError == null &&
         _streetError == null &&
         _districtError == null &&
         _numberError == null &&
-        _clinicError == null) {
+        _clinicError == null &&
+        _dateError == null) {
+      newDonate.blood = _bloodController.text;
+      newDonate.name = _userController.text;
+      newDonate.number = int.parse(_numberController.text);
+      newDonate.street = _streetController.text;
+      newDonate.district = _districtController.text;
+      newDonate.clinic = _clinicController.text;
+      newDonate.doctor = _doctorController.text;
     } else {
       setState(() {});
     }

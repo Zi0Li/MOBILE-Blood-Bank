@@ -3,11 +3,14 @@ import 'package:path/path.dart';
 
 const String donateTable = 'donateTable';
 const String idColumn = 'idColumn';
-final String numberColumn = 'numberColumn';
-final String dateColumn = 'dateColumn';
-final String streetColumn = 'streetColumn';
-final String districtColumn = 'districtColumn';
-final String clinicColumn = 'clinicColumn';
+const String nameColumn = 'nameColumn';
+const String bloodColumn = 'bloodColumn';
+const String numberColumn = 'numberColumn';
+const String dateColumn = 'dateColumn';
+const String streetColumn = 'streetColumn';
+const String districtColumn = 'districtColumn';
+const String clinicColumn = 'clinicColumn';
+const String doctorColumn = 'doctorColumn';
 
 class DonateController {
   static final DonateController _instance = DonateController.internal();
@@ -34,8 +37,8 @@ class DonateController {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
-          "CREATE TABLE $donateTable($idColumn INTEGER PRIMARY KEY, $streetColumn TEXT, $districtColumn TEXT,"
-          "$numberColumn INTEGER, $clinicColumn TEXT, $dateColumn TEXT)");
+          "CREATE TABLE $donateTable($idColumn INTEGER PRIMARY KEY, , $nameColumn TEXT, $bloodColumn TEXT, $streetColumn TEXT, $districtColumn TEXT,"
+          "$numberColumn INTEGER, $clinicColumn TEXT, $dateColumn TEXT), $doctorColumn TEXT)");
     });
   }
 
@@ -51,11 +54,14 @@ class DonateController {
     List<Map> maps = await dbDonate.query(donateTable,
         columns: [
           idColumn,
+          nameColumn,
+          bloodColumn,
           streetColumn,
           districtColumn,
           numberColumn,
           clinicColumn,
-          dateColumn
+          doctorColumn,
+          dateColumn,
         ],
         where: "$idColumn = ?",
         whereArgs: [id]);
@@ -99,7 +105,7 @@ class DonateController {
     dbDonate.close();
   }
 
-   Future deleteAll() async{
+  Future deleteAll() async {
     Database dbDonate = await db;
     dbDonate.execute('DELETE FROM $donateTable');
   }
@@ -108,29 +114,38 @@ class DonateController {
 class Donate {
   int? id;
   int? number;
+  String? name;
+  String? blood;
   String? date;
   String? street;
   String? district;
   String? clinic;
+  String? doctor;
 
   Donate();
 
   Donate.fromMap(Map map) {
     id = map[idColumn];
+    name = map[nameColumn];
+    blood = map[bloodColumn];
     number = map[numberColumn];
     date = map[dateColumn];
     street = map[streetColumn];
     district = map[districtColumn];
     clinic = map[clinicColumn];
+    doctor = map[doctorColumn];
   }
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       streetColumn: street,
+      nameColumn: name,
+      bloodColumn: blood,
       districtColumn: district,
       numberColumn: number,
       dateColumn: date,
-      clinicColumn: clinicColumn,
+      clinicColumn: clinic,
+      doctorColumn: doctor,
     };
     if (id != null) {
       map[idColumn] = id;
@@ -140,6 +155,6 @@ class Donate {
 
   @override
   String toString() {
-    return "Donate(id: $id,date: $date, number: $number, street: $street, district: $district, clinic: $clinic)";
+    return "Donate(id: $id,date: $date,name: $name,blood: $blood, number: $number, street: $street, district: $district, clinic: $clinic, doctor: $doctor)";
   }
 }
