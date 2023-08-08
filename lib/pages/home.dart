@@ -25,10 +25,24 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
+    Donate d = Donate();
+
+    // d.blood = 'A+';
+    // d.clinic = 'Saude e vida';
+    // d.date = '21/12/2021';
+    // d.district = 'Jardim Paulista';
+    // d.doctor = 'Dra. Andreia';
+    // d.name = 'Marcelo Zioli';
+    // d.number = 10;
+    // d.street = 'Rua Manoel Pereira Alvim';
+
+    // controller.saveDonate(d);
+
     controller.getAllDonate().then((value) {
       donates = value;
-      print(donates);
       controller.deleteDonate(1);
+      print(donates);
     });
   }
 

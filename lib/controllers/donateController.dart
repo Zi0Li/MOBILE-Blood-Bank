@@ -37,8 +37,8 @@ class DonateController {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
-          "CREATE TABLE $donateTable($idColumn INTEGER PRIMARY KEY, , $nameColumn TEXT, $bloodColumn TEXT, $streetColumn TEXT, $districtColumn TEXT,"
-          "$numberColumn INTEGER, $clinicColumn TEXT, $dateColumn TEXT), $doctorColumn TEXT)");
+          "CREATE TABLE $donateTable($idColumn INTEGER PRIMARY KEY, $nameColumn TEXT, $bloodColumn TEXT, $streetColumn TEXT, $districtColumn TEXT,"
+          "$numberColumn INTEGER, $clinicColumn TEXT, $dateColumn TEXT, $doctorColumn TEXT)");
     });
   }
 
