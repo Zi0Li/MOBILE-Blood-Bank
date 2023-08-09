@@ -1,5 +1,6 @@
 import 'package:blood_bank/controllers/donateController.dart';
 import 'package:blood_bank/controllers/formsValidator.dart';
+import 'package:blood_bank/pages/donate.dart';
 import 'package:flutter/material.dart';
 
 class DonateFormPage extends StatefulWidget {
@@ -103,7 +104,7 @@ class _DonateFormPageState extends State<DonateFormPage> {
               SizedBox(
                 height: 10,
               ),
-              _textField('Horário', Icons.timer_outlined, _dateController,
+              _textField('Data', Icons.calendar_month_outlined, _dateController,
                   error: _dateError, type: TextInputType.datetime),
               SizedBox(
                 height: 30,
@@ -207,6 +208,11 @@ class _DonateFormPageState extends State<DonateFormPage> {
       newDonate.district = _districtController.text;
       newDonate.clinic = _clinicController.text;
       newDonate.doctor = _doctorController.text;
+      newDonate.date = _dateController.text;
+      controller.saveDonate(newDonate).then((value) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: ((context) => DonatePage())));
+      });
     } else {
       setState(() {});
     }

@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
 
     controller.getAllDonate().then((value) {
       donates = value;
-      controller.deleteDonate(1);
+      //controller.deleteDonate(1);
       print(donates);
     });
   }

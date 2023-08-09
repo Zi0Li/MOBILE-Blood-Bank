@@ -11,6 +11,16 @@ class DonatePage extends StatefulWidget {
 
 class _DonatePageState extends State<DonatePage> {
   DonateController donateController = DonateController();
+  List<dynamic> donates = [];
+
+  @override
+  void initState() {
+    super.initState();
+    donateController.getAllDonate().then((value) {
+      donates = value;
+      print('Donates: $donates');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +102,7 @@ class _DonatePageState extends State<DonatePage> {
                             MaterialPageRoute(
                               builder: (context) => DonateFormPage(),
                             ),
-                            );
+                          );
                         },
                         child: Text(
                           'Adicionar',
@@ -113,9 +123,9 @@ class _DonatePageState extends State<DonatePage> {
               } else {
                 return ListView.builder(
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  itemCount: snapshot.data!.length,
+                  itemCount: donates.length,
                   itemBuilder: (context, index) {
-                    return _card();
+                    return _card(context, index);
                   },
                 );
               }
@@ -125,148 +135,119 @@ class _DonatePageState extends State<DonatePage> {
     );
   }
 
-  Widget _card() {
+  Widget _card(BuildContext context, int index) {
     return GestureDetector(
-      child: Container(
-        height: 147,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: const [
-            BoxShadow(
-                color: Color.fromARGB(196, 196, 196, 196),
-                spreadRadius: 1,
-                blurRadius: 4,
-                offset: Offset(0, 4))
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'Próxima Consulta',
-                        style: TextStyle(
-                            color: Color(0xFFE73526),
-                            fontFamily: 'Inter',
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Data: ',
-                        style: TextStyle(fontFamily: 'Inter', fontSize: 18),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 9,
-                  ),
-                  Container(
-                    width: 352,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          strokeAlign: BorderSide.strokeAlignCenter,
-                          color: Color(0xFFD0D0D0),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                  color: Color.fromARGB(196, 196, 196, 196),
+                  spreadRadius: 1,
+                  blurRadius: 4,
+                  offset: Offset(0, 4))
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+            child: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Próxima Consulta',
+                      style: TextStyle(
+                          color: Color(0xFFE73526),
+                          fontFamily: 'Inter',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    _text('Data', donates[index].date),
+                    _text('Nome', donates[index].name),
+                    _text('Doutor(a)', donates[index].doctor),
+                    SizedBox(
+                      height: 9,
+                    ),
+                    Container(
+                      width: 352,
+                      decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            width: 1,
+                            strokeAlign: BorderSide.strokeAlignCenter,
+                            color: Color(0xFFD0D0D0),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 9,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Rua: ',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 18,
-                            color: Colors.black),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Bairro: ',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 18,
-                            color: Colors.black),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Clínica: ',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 18,
-                            color: Colors.black),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              Column(
-                children: const [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        Icons.calendar_month,
-                        size: 50,
-                        color: Color(0xFFE73526),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'N°: ',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 18,
-                            color: Colors.black),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Mapa',
-                          style: TextStyle(fontSize: 16, fontFamily: 'Inter'),
+                    SizedBox(
+                      height: 9,
+                    ),
+                    _text('Rua', donates[index].street),
+                    _text('Bairro', donates[index].district),
+                    _text('Clínica', donates[index].clinic)
+                  ],
+                ),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(
+                          Icons.calendar_month,
+                          size: 50,
+                          color: Color(0xFFE73526),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+                      ],
+                    ),
+                    SizedBox(height: 60,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [_text('N°', donates[index].number.toString())],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Mapa',
+                            style: TextStyle(fontSize: 16, fontFamily: 'Inter'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _text(String label, String value) {
+    return Row(
+      children: [
+        Text(
+          '$label: ',
+          style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 18,
+              color: Colors.black,
+              fontWeight: FontWeight.bold),
+        ),
+        Text(
+          value,
+          style:
+              TextStyle(fontFamily: 'Inter', fontSize: 18, color: Colors.black),
+        )
+      ],
     );
   }
 }
