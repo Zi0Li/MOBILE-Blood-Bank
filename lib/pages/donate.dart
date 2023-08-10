@@ -16,10 +16,7 @@ class _DonatePageState extends State<DonatePage> {
   @override
   void initState() {
     super.initState();
-    donateController.getAllDonate().then((value) {
-      donates = value;
-      print('Donates: $donates');
-    });
+    _getAllDonates();
   }
 
   @override
@@ -204,7 +201,9 @@ class _DonatePageState extends State<DonatePage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 60,),
+                    SizedBox(
+                      height: 60,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [_text('N°', donates[index].number.toString())],
@@ -228,7 +227,29 @@ class _DonatePageState extends State<DonatePage> {
           ),
         ),
       ),
+      onTap: () {
+        _navigatorDonateFormPage(Donate: donates[index]);
+      },
     );
+  }
+
+  void _navigatorDonateFormPage({Donate? Donate}) async {
+    final recDonate = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DonateFormPage(
+          donate: Donate,
+        ),
+      ),
+    );
+    if (recDonate != null) {
+      if (Donate != null) {
+        await donateController.updateDonate(recDonate);
+      } else {
+        await donateController.saveDonate(recDonate);
+      }
+    }
+    _getAllDonates();
   }
 
   Widget _text(String label, String value) {
@@ -249,5 +270,13 @@ class _DonatePageState extends State<DonatePage> {
         )
       ],
     );
+  }
+
+  _getAllDonates() {
+    donateController.getAllDonate().then((value) {
+      setState(() {
+        donates = value;
+      });
+    });
   }
 }

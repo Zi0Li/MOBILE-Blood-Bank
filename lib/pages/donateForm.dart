@@ -1,10 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:blood_bank/controllers/donateController.dart';
 import 'package:blood_bank/controllers/formsValidator.dart';
-import 'package:blood_bank/pages/donate.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DonateFormPage extends StatefulWidget {
-  const DonateFormPage({super.key});
+  Donate? donate;
+  DonateFormPage({this.donate, super.key});
 
   @override
   State<DonateFormPage> createState() => _DonateFormPageState();
@@ -13,16 +16,17 @@ class DonateFormPage extends StatefulWidget {
 class _DonateFormPageState extends State<DonateFormPage> {
   DonateController controller = DonateController();
   FormsValidator validator = FormsValidator();
-  Donate newDonate = Donate();
+  Donate? newDonate;
 
-  final TextEditingController _userController = TextEditingController();
-  final TextEditingController _bloodController = TextEditingController();
-  final TextEditingController _doctorController = TextEditingController();
-  final TextEditingController _streetController = TextEditingController();
-  final TextEditingController _districtController = TextEditingController();
-  final TextEditingController _numberController = TextEditingController();
-  final TextEditingController _clinicController = TextEditingController();
-  final TextEditingController _dateController = TextEditingController();
+  TextEditingController _userController = TextEditingController();
+  TextEditingController _bloodController = TextEditingController();
+  TextEditingController _doctorController = TextEditingController();
+  TextEditingController _streetController = TextEditingController();
+
+  TextEditingController _districtController = TextEditingController();
+  TextEditingController _numberController = TextEditingController();
+  TextEditingController _clinicController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
 
   String? _userError;
   String? _bloodError;
@@ -36,6 +40,19 @@ class _DonateFormPageState extends State<DonateFormPage> {
   @override
   void initState() {
     super.initState();
+    if (widget.donate != null) {
+      newDonate = Donate.fromMap(widget.donate!.toMap());
+      _bloodController.text = newDonate!.blood!;
+      _clinicController.text = newDonate!.clinic!;
+      _userController.text = newDonate!.name!;
+      _doctorController.text = newDonate!.doctor!;
+      _districtController.text = newDonate!.district!;
+      _numberController.text = newDonate!.number!.toString();
+      _dateController.text = newDonate!.date!;
+      _streetController.text = newDonate!.street!;
+    } else {
+      newDonate = Donate();
+    }
   }
 
   @override
@@ -104,8 +121,55 @@ class _DonateFormPageState extends State<DonateFormPage> {
               SizedBox(
                 height: 10,
               ),
-              _textField('Data', Icons.calendar_month_outlined, _dateController,
-                  error: _dateError, type: TextInputType.datetime),
+              TextField(
+                controller: _dateController,
+                decoration: InputDecoration(
+                  errorText: _dateError,
+                  errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1, color: Colors.red)),
+                  errorStyle: TextStyle(color: Colors.red, fontSize: 14),
+                  labelText: 'Data',
+                  labelStyle:
+                      TextStyle(color: Color.fromRGBO(116, 121, 128, 1)),
+                  prefixIcon: Icon(
+                    Icons.calendar_month_outlined,
+                    color: Color.fromRGBO(102, 112, 133, 1),
+                    size: 25,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromRGBO(227, 227, 227, 1)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromRGBO(227, 227, 227, 1)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                ),
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2023),
+                    lastDate: DateTime(2100),
+                  );
+
+                  if (pickedDate != null) {
+                    String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);               
+                    setState(() {
+                      _dateController.text = formattedDate;
+                    });
+                  } else {
+                    setState(() {
+                    });
+                  }
+                },
+              ),
               SizedBox(
                 height: 30,
               ),
@@ -118,7 +182,7 @@ class _DonateFormPageState extends State<DonateFormPage> {
                       _create();
                     },
                     child: Text(
-                      'Cadastrar',
+                      'Salvar',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -201,18 +265,15 @@ class _DonateFormPageState extends State<DonateFormPage> {
         _numberError == null &&
         _clinicError == null &&
         _dateError == null) {
-      newDonate.blood = _bloodController.text;
-      newDonate.name = _userController.text;
-      newDonate.number = int.parse(_numberController.text);
-      newDonate.street = _streetController.text;
-      newDonate.district = _districtController.text;
-      newDonate.clinic = _clinicController.text;
-      newDonate.doctor = _doctorController.text;
-      newDonate.date = _dateController.text;
-      controller.saveDonate(newDonate).then((value) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: ((context) => DonatePage())));
-      });
+      newDonate!.blood = _bloodController.text;
+      newDonate!.name = _userController.text;
+      newDonate!.number = int.parse(_numberController.text);
+      newDonate!.street = _streetController.text;
+      newDonate!.district = _districtController.text;
+      newDonate!.clinic = _clinicController.text;
+      newDonate!.doctor = _doctorController.text;
+      newDonate!.date = _dateController.text;
+      Navigator.pop(context, newDonate);
     } else {
       setState(() {});
     }

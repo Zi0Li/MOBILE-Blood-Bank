@@ -26,8 +26,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    Donate d = Donate();
-
+    //Donate d = Donate();
     // d.blood = 'A+';
     // d.clinic = 'Saude e vida';
     // d.date = '21/12/2021';
@@ -36,12 +35,11 @@ class _HomePageState extends State<HomePage> {
     // d.name = 'Marcelo Zioli';
     // d.number = 10;
     // d.street = 'Rua Manoel Pereira Alvim';
-
     // controller.saveDonate(d);
 
+    //controller.deleteDonate(1);
     controller.getAllDonate().then((value) {
       donates = value;
-      //controller.deleteDonate(1);
       print(donates);
     });
   }
