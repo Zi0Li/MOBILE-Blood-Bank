@@ -32,8 +32,7 @@ class _DonatePageState extends State<DonatePage> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DonateFormPage()));
+                _navigatorDonateFormPage();
               },
               icon: Icon(Icons.add))
         ],
