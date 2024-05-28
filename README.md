@@ -10,9 +10,7 @@
 
 > O Blood Bank é um aplicativo para dispositivos móveis oferecido de forma gratuita. Ele tem como objetivo facilitar a coleta de doadores de sangue, apoiando os hemocentros da rede pública de saúde ao divulgar informações relevantes para o público e promover campanhas de doação de sangue.
 
-### 💻 Tecnologias
-
-O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
+## 💻 Tecnologias
 
 - Flutter(Front-end)
 - Laravel(Back-end)
