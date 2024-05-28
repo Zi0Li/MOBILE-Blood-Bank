@@ -1,11 +1,5 @@
 # BLOOD BANK
 
-![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/iuricode/README-template?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/iuricode/README-template?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/iuricode/README-template?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/iuricode/README-template?style=for-the-badge)
-
 <img src="image.png" alt="BloodBank">
 
 > O Blood Bank é um aplicativo para dispositivos móveis oferecido de forma gratuita. Ele tem como objetivo facilitar a coleta de doadores de sangue, apoiando os hemocentros da rede pública de saúde ao divulgar informações relevantes para o público e promover campanhas de doação de sangue.
