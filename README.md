@@ -10,6 +10,13 @@
 
 > O Blood Bank é um aplicativo para dispositivos móveis oferecido de forma gratuita. Ele tem como objetivo facilitar a coleta de doadores de sangue, apoiando os hemocentros da rede pública de saúde ao divulgar informações relevantes para o público e promover campanhas de doação de sangue.
 
+### 💻 Tecnologias
+
+O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
+
+- Flutter(Front-end)
+- Laravel(Back-end)
+
 ## 🤝 Colaboradores
 
 Às seguintes pessoas que contribuíram para este projeto:
@@ -22,9 +29,9 @@
         <sub>
           <b>Marcelo Zioli</b>
         </sub>
-        <sub>
-          <b>Front-end</b>
-        </sub>
+        <p>
+            Front-end
+        </p>
       </a>
     </td>
     <td align="center">
@@ -33,9 +40,9 @@
         <sub>
           <b>João Lucas Buzzo</b>
         </sub>
-        <sub>
-          <b>Back-end</b>
-        </sub>
+        <<p>
+            Back-end
+        </p>
       </a>
     </td>
     <td align="center">
@@ -44,14 +51,14 @@
         <sub>
           <b>João L. Barboza</b>
         </sub>
-        <sub>
-          <b>UX Designer</b>
-        </sub>
+        <p>
+            UX Designer
+        </p>
       </a>
     </td>
   </tr>
 </table>
 
-## 📝 Licença
+## 📝 Saiba mais
 
 Mais informaões sobre o projeto. Veja no site [HubInova FEMA](https://hub.fema.edu.br/).
