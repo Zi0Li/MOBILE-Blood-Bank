@@ -1,5 +1,8 @@
-import 'package:blood_bank/controllers/requirementsController.dart';
-import 'package:blood_bank/widgets/NavigationBar.dart';
+import 'package:accordion/accordion.dart';
+import 'package:blood_bank/controllers/requirements_controller.dart';
+import 'package:blood_bank/pages/home.dart';
+import 'package:blood_bank/widgets/AppBar.dart';
+import 'package:blood_bank/widgets/config.dart';
 import 'package:flutter/material.dart';
 
 class GuidePage extends StatefulWidget {
@@ -10,124 +13,163 @@ class GuidePage extends StatefulWidget {
 }
 
 class _GuidePageState extends State<GuidePage> {
-  Requirements _requirement = Requirements();
-  List<String> _textBasic = [];
-  List<String> _textTemporary = [];
-  List<String> _textDefinitive = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _textBasic.addAll(_requirement.basic);
-    _textTemporary.addAll(_requirement.temporary);
-    _textDefinitive.addAll(_requirement.definitive);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Guia',
-          style: TextStyle(
-              color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Color.fromRGBO(231, 53, 38, 1),
-      ),
-      backgroundColor: Color.fromRGBO(253, 253, 253, 1),
-      bottomNavigationBar: NavigationAppBar(),
-      body: SingleChildScrollView(
-          child: Column(
-        children: [
-          Divider(),
-          _title('Básicos'),
-          Divider(),
-          for (int i = 0; i < _textBasic.length; i++)
-            _card((i + 1), _textBasic[i]),
-          Divider(),
-          _title('Temporários'),
-          Divider(),
-          for (int i = 0; i < _textTemporary.length; i++)
-            _card((i + 1), _textTemporary[i]),
-          Divider(),
-          _title('Definitivos'),
-          Divider(),
-          for (int i = 0; i < _textDefinitive.length; i++)
-            _card((i + 1), _textDefinitive[i]),
-        ],
-      )),
-    );
-  }
-
-  Widget _card(int _number, String _value) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-      child: Container(
-        decoration: BoxDecoration(
-            color:  Color.fromARGB(179, 255, 255, 255),
-            borderRadius: BorderRadius.circular(10),
-            border: Border( 
-              left: BorderSide(width: 0, color: Colors.transparent),
-              right: BorderSide(width: 0, color: Colors.transparent),
-              top: BorderSide(width: 0, color: Colors.transparent),
-              bottom: BorderSide(width: 0, color: Colors.transparent),
-            ),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x3F000000),
-                blurRadius: 4,
-                offset: Offset(0, 4),
-                spreadRadius: 0,
-              )
-            ]),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  Text(
-                    '${_number.toString()}.',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      backgroundColor: Config.white,
+      appBar: TopAppBar(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ),
+                        );
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    size: 28,
                   ),
-                ],
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                Text(
+                  "Guia",
+                  style: TextStyle(
+                    color: Config.black,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )
+              ],
+            ),
+            Expanded(
+              child: Container(
+                child: Accordion(
+                  headerBorderColorOpened: Config.greyBorder,
+                  headerBorderWidth: 1,
+                  contentBackgroundColor: Colors.white,
+                  contentBorderColor: Config.greyBorder,
+                  contentBorderWidth: 1,
+                  scaleWhenAnimating: true,
+                  openAndCloseAnimation: true,
+                  headerPadding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   children: [
-                    Text(
-                      _value,
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    AccordionSection(
+                        rightIcon: Icon(
+                          Icons.arrow_downward,
+                          size: 20,
+                        ),
+                        headerBackgroundColor: Colors.white,
+                        isOpen: false,
+                        headerBorderColor: Config.greyBorder,
+                        header: const Text(
+                          'Requisitos básicos',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        content: Column(
+                          children: [
+                            for (int i = 0; i < Requirements.basic.length; i++)
+                              _text(Requirements.basic[i])
+                          ],
+                        )),
+                    AccordionSection(
+                        rightIcon: Icon(
+                          Icons.arrow_downward,
+                          size: 20,
+                        ),
+                        headerBackgroundColor: Colors.white,
+                        isOpen: false,
+                        contentVerticalPadding: 20,
+                        headerBorderColor: Config.greyBorder,
+                        header: const Text(
+                          'Requisitos temporários',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        content: Column(
+                          children: [
+                            for (int i = 0;
+                                i < Requirements.temporary.length;
+                                i++)
+                              _text(Requirements.temporary[i])
+                          ],
+                        )),
+                    AccordionSection(
+                      rightIcon: Icon(
+                        Icons.arrow_downward,
+                        size: 20,
+                      ),
+                      headerBackgroundColor: Colors.white,
+                      isOpen: false,
+                      contentVerticalPadding: 20,
+                      headerBorderColor: Config.greyBorder,
+                      header: const Text(
+                        'Requisitos definitivos',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      content: Column(
+                        children: [
+                          for (int i = 0;
+                              i < Requirements.definitive.length;
+                              i++)
+                            _text(Requirements.definitive[i])
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
   }
 
-  Widget _title(String _text) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        child: Text(
-          _text,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
+  Widget _text(String text) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Icon(
+              Icons.circle,
+              size: 7,
+            ),
           ),
-        ),
+          SizedBox(
+            width: 5,
+          ),
+          Expanded(
+            child: Text(
+              text,
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                color: Config.black,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

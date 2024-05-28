@@ -1,3 +1,4 @@
+import 'package:blood_bank/data/models/Donate.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -11,6 +12,7 @@ const String streetColumn = 'streetColumn';
 const String districtColumn = 'districtColumn';
 const String clinicColumn = 'clinicColumn';
 const String doctorColumn = 'doctorColumn';
+const String statusColumn = 'statusColumn';
 
 class DonateController {
   static final DonateController _instance = DonateController.internal();
@@ -38,7 +40,7 @@ class DonateController {
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE $donateTable($idColumn INTEGER PRIMARY KEY, $nameColumn TEXT, $bloodColumn TEXT, $streetColumn TEXT, $districtColumn TEXT,"
-          "$numberColumn INTEGER, $clinicColumn TEXT, $dateColumn TEXT, $doctorColumn TEXT)");
+          "$numberColumn TEXT, $clinicColumn TEXT, $dateColumn TEXT, $doctorColumn TEXT, $statusColumn TEXT)");
     });
   }
 
@@ -61,12 +63,42 @@ class DonateController {
           numberColumn,
           clinicColumn,
           doctorColumn,
+          statusColumn,
           dateColumn,
         ],
         where: "$idColumn = ?",
         whereArgs: [id]);
     if (maps.length > 0) {
       return Donate.fromMap(maps.first);
+    } else {
+      return null;
+    }
+  }
+
+    Future<dynamic> getDonateStatus(String status) async {
+    Database dbDonate = await db;
+    List<Map> maps = await dbDonate.query(donateTable,
+        columns: [
+          idColumn,
+          nameColumn,
+          bloodColumn,
+          streetColumn,
+          districtColumn,
+          numberColumn,
+          clinicColumn,
+          doctorColumn,
+          statusColumn,
+          dateColumn,
+        ],
+        where: "$statusColumn = ?",
+        orderBy: dateColumn,
+        whereArgs: [status]);
+    if (maps.length > 0) {
+      List<Donate> list = [];
+      for (var i = 0; i < maps.length; i++) {
+        list.add(Donate.fromMap(maps[i]));
+      }
+      return list;
     } else {
       return null;
     }
@@ -111,50 +143,3 @@ class DonateController {
   }
 }
 
-class Donate {
-  int? id;
-  int? number;
-  String? name;
-  String? blood;
-  String? date;
-  String? street;
-  String? district;
-  String? clinic;
-  String? doctor;
-
-  Donate();
-
-  Donate.fromMap(Map map) {
-    id = map[idColumn];
-    name = map[nameColumn];
-    blood = map[bloodColumn];
-    number = map[numberColumn];
-    date = map[dateColumn];
-    street = map[streetColumn];
-    district = map[districtColumn];
-    clinic = map[clinicColumn];
-    doctor = map[doctorColumn];
-  }
-
-  Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = {
-      streetColumn: street,
-      nameColumn: name,
-      bloodColumn: blood,
-      districtColumn: district,
-      numberColumn: number,
-      dateColumn: date,
-      clinicColumn: clinic,
-      doctorColumn: doctor,
-    };
-    if (id != null) {
-      map[idColumn] = id;
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return "Donate(id: $id,date: $date,name: $name,blood: $blood, number: $number, street: $street, district: $district, clinic: $clinic, doctor: $doctor)";
-  }
-}
